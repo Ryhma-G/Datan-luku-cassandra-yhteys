@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SavoniaMeasurementsV2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Data">
+          <Key>
+            <PropertyRef Name="MeasurementID" />
+            <PropertyRef Name="Tag" />
+          </Key>
+          <Property Name="MeasurementID" Type="bigint" Nullable="false" />
+          <Property Name="Tag" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="float" />
+          <Property Name="LongValue" Type="bigint" />
+          <Property Name="TextValue" Type="nvarchar(max)" />
+          <Property Name="BinaryValue" Type="varbinary(max)" />
+          <Property Name="XmlValue" Type="xml" />
+        </EntityType>
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProviderID" Type="int" Nullable="false" />
+          <Property Name="Object" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tag" Type="nvarchar" MaxLength="50" />
+          <Property Name="Timestamp" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="Location" Type="geography" />
+          <Property Name="RowCreatedTimestamp" Type="datetimeoffset" Precision="7" />
+          <Property Name="KeyId" Type="smallint" />
+        </EntityType>
+        <Association Name="FK_Data_Measurement">
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Data" Type="Self.Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Data">
+              <PropertyRef Name="MeasurementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SavoniaMeasurementsV2ModelStoreContainer">
+          <EntitySet Name="Data" EntityType="Self.Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Measurement" EntityType="Self.Measurement" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Data_Measurement" Association="Self.FK_Data_Measurement">
+            <End Role="Measurement" EntitySet="Measurement" />
+            <End Role="Data" EntitySet="Data" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SavoniaMeasurementsV2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Data">
+          <Key>
+            <PropertyRef Name="MeasurementID" />
+            <PropertyRef Name="Tag" />
+          </Key>
+          <Property Name="MeasurementID" Type="Int64" Nullable="false" />
+          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="Double" />
+          <Property Name="LongValue" Type="Int64" />
+          <Property Name="TextValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BinaryValue" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="XmlValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Measurement" Relationship="Self.FK_Data_Measurement" FromRole="Data" ToRole="Measurement" />
+        </EntityType>
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProviderID" Type="Int32" Nullable="false" />
+          <Property Name="Object" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="Geography" />
+          <Property Name="RowCreatedTimestamp" Type="DateTimeOffset" Precision="7" />
+          <Property Name="KeyId" Type="Int16" />
+          <NavigationProperty Name="Data" Relationship="Self.FK_Data_Measurement" FromRole="Measurement" ToRole="Data" />
+        </EntityType>
+        <Association Name="FK_Data_Measurement">
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Data" Type="Self.Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Data">
+              <PropertyRef Name="MeasurementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SavoniaMeasurementsV2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Data" EntityType="Self.Data" />
+          <EntitySet Name="Measurement" EntityType="Self.Measurement" />
+          <AssociationSet Name="FK_Data_Measurement" Association="Self.FK_Data_Measurement">
+            <End Role="Measurement" EntitySet="Measurement" />
+            <End Role="Data" EntitySet="Data" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SavoniaMeasurementsV2ModelStoreContainer" CdmEntityContainer="SavoniaMeasurementsV2Entities">
+          <EntitySetMapping Name="Data">
+            <EntityTypeMapping TypeName="SavoniaMeasurementsV2Model.Data">
+              <MappingFragment StoreEntitySet="Data">
+                <ScalarProperty Name="MeasurementID" ColumnName="MeasurementID" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="LongValue" ColumnName="LongValue" />
+                <ScalarProperty Name="TextValue" ColumnName="TextValue" />
+                <ScalarProperty Name="BinaryValue" ColumnName="BinaryValue" />
+                <ScalarProperty Name="XmlValue" ColumnName="XmlValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Measurement">
+            <EntityTypeMapping TypeName="SavoniaMeasurementsV2Model.Measurement">
+              <MappingFragment StoreEntitySet="Measurement">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
+                <ScalarProperty Name="Object" ColumnName="Object" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="RowCreatedTimestamp" ColumnName="RowCreatedTimestamp" />
+                <ScalarProperty Name="KeyId" ColumnName="KeyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

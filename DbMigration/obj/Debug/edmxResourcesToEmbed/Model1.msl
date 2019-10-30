@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SavoniaMeasurementsV2ModelStoreContainer" CdmEntityContainer="SavoniaMeasurementsV2Entities">
+    <EntitySetMapping Name="Data">
+      <EntityTypeMapping TypeName="SavoniaMeasurementsV2Model.Data">
+        <MappingFragment StoreEntitySet="Data">
+          <ScalarProperty Name="MeasurementID" ColumnName="MeasurementID" />
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="LongValue" ColumnName="LongValue" />
+          <ScalarProperty Name="TextValue" ColumnName="TextValue" />
+          <ScalarProperty Name="BinaryValue" ColumnName="BinaryValue" />
+          <ScalarProperty Name="XmlValue" ColumnName="XmlValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Measurement">
+      <EntityTypeMapping TypeName="SavoniaMeasurementsV2Model.Measurement">
+        <MappingFragment StoreEntitySet="Measurement">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
+          <ScalarProperty Name="Object" ColumnName="Object" />
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="RowCreatedTimestamp" ColumnName="RowCreatedTimestamp" />
+          <ScalarProperty Name="KeyId" ColumnName="KeyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

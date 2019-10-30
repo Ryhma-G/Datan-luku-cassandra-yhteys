@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SavoniaMeasurementsV2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Data">
+    <Key>
+      <PropertyRef Name="MeasurementID" />
+      <PropertyRef Name="Tag" />
+    </Key>
+    <Property Name="MeasurementID" Type="bigint" Nullable="false" />
+    <Property Name="Tag" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Value" Type="float" />
+    <Property Name="LongValue" Type="bigint" />
+    <Property Name="TextValue" Type="nvarchar(max)" />
+    <Property Name="BinaryValue" Type="varbinary(max)" />
+    <Property Name="XmlValue" Type="xml" />
+  </EntityType>
+  <EntityType Name="Measurement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderID" Type="int" Nullable="false" />
+    <Property Name="Object" Type="nvarchar" MaxLength="50" />
+    <Property Name="Tag" Type="nvarchar" MaxLength="50" />
+    <Property Name="Timestamp" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="Note" Type="nvarchar(max)" />
+    <Property Name="Location" Type="geography" />
+    <Property Name="RowCreatedTimestamp" Type="datetimeoffset" Precision="7" />
+    <Property Name="KeyId" Type="smallint" />
+  </EntityType>
+  <Association Name="FK_Data_Measurement">
+    <End Role="Measurement" Type="Self.Measurement" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Data" Type="Self.Data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Measurement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Data">
+        <PropertyRef Name="MeasurementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SavoniaMeasurementsV2ModelStoreContainer">
+    <EntitySet Name="Data" EntityType="Self.Data" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Measurement" EntityType="Self.Measurement" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Data_Measurement" Association="Self.FK_Data_Measurement">
+      <End Role="Measurement" EntitySet="Measurement" />
+      <End Role="Data" EntitySet="Data" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
